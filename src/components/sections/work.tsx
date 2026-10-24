@@ -25,7 +25,10 @@ export function Work() {
           <h3 className="label">More projects</h3>
           <ul className="mt-6 grid gap-5 md:grid-cols-2">
             {otherProjects.map((project) => (
-              <li key={project.slug} className={project.media ? "md:row-span-2" : undefined}>
+              <li
+                key={project.slug}
+                className={project.screenshots || project.diagram ? undefined : "md:col-span-2"}
+              >
                 <ProjectCard project={project} variant="compact" />
               </li>
             ))}

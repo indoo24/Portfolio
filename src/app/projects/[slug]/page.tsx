@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProjectLinks } from "@/components/project/project-card";
-import { ProjectMedia } from "@/components/project/project-media";
+import { ArchitectureDiagram } from "@/components/project/architecture-diagram";
+import { ScreenshotGallery } from "@/components/project/screenshot-gallery";
 import { Container } from "@/components/ui/container";
 import { StatusBadge, TagList } from "@/components/ui/tag-list";
 import { profile } from "@/content/profile";
@@ -49,6 +50,10 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
   const { caseStudy } = project;
   const position = caseStudies.findIndex((item) => item.slug === project.slug);
   const next = caseStudies[(position + 1) % caseStudies.length];
+
+  // Sections are numbered in render order; the diagram section is optional.
+  let sectionCount = 0;
+  const sectionIndex = () => String(++sectionCount).padStart(2, "0");
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -109,17 +114,16 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
       </header>
 
       <Container className="py-16 lg:py-24">
-        {project.media && (
-          <div className="mx-auto max-w-4xl">
-            <ProjectMedia
-              media={project.media}
-              title={project.title}
-              sizes="(min-width: 1024px) 280px, 30vw"
-            />
-          </div>
+        {project.screenshots && (
+          <section aria-labelledby="screens-title">
+            <h2 id="screens-title" className="sr-only">
+              Screens
+            </h2>
+            <ScreenshotGallery screenshots={project.screenshots} title={project.title} />
+          </section>
         )}
 
-        <CaseSection index="01" title="Overview">
+        <CaseSection index={sectionIndex()} title="Overview">
           <div className="space-y-5 text-lg text-pretty">
             {caseStudy.overview.map((paragraph) => (
               <p key={paragraph} className="first:text-fg [&:not(:first-child)]:text-muted">
@@ -129,7 +133,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
           </div>
         </CaseSection>
 
-        <CaseSection index="02" title="What I built">
+        <CaseSection index={sectionIndex()} title="What I built">
           <ul className="space-y-4">
             {project.highlights.map((item) => (
               <li key={item} className="flex gap-3 text-pretty">
@@ -140,7 +144,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
           </ul>
         </CaseSection>
 
-        <CaseSection index="03" title="Problems & decisions">
+        {project.diagram && (
+          <CaseSection index={sectionIndex()} title={project.diagram.title}>
+            <ArchitectureDiagram diagram={project.diagram} title={project.title} />
+          </CaseSection>
+        )}
+
+        <CaseSection index={sectionIndex()} title="Problems & decisions">
           <ol className="divide-y divide-line border-y border-line">
             {caseStudy.decisions.map((item, index) => (
               <li key={item.title} className="reveal grid gap-4 py-8 md:grid-cols-12 md:gap-6">
@@ -165,7 +175,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
           </ol>
         </CaseSection>
 
-        <CaseSection index="04" title="Engineering practices">
+        <CaseSection index={sectionIndex()} title="Engineering practices">
           <ul className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
             {caseStudy.practices.map((item) => (
               <li key={item} className="bg-bg p-5 text-sm text-pretty text-muted">

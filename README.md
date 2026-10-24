@@ -52,7 +52,8 @@ src/
   components/
     layout/                    Header, mobile menu (+ lazily loaded panel), footer
     sections/                  Hero, Work, About, Skills, Contact
-    project/                   ProjectCard, ProjectMedia, ArchitectureDiagram, ScreenshotStrip
+    project/                   ProjectCard, ProjectCover, ScreenshotGallery, ScreenshotStrip,
+                               ArchitectureDiagram
     ui/                        ButtonLink, Container, SectionHeading, TagList, icons
   content/                     ← all site copy and data
     profile.ts                 Name, title, links, résumé, availability, hero log, navigation
@@ -62,7 +63,7 @@ src/
     types.ts                   Types for all of the above
   lib/                         Site URL resolution, JSON-LD and OG image helpers
   assets/og/                   Fonts used to render social images (OFL)
-public/projects/<slug>/        Optimized project screenshots
+public/projects/<slug>/        Optimized project screenshots (WebP)
 scripts/optimize-images.mjs    Screenshot → WebP converter
 ```
 
@@ -85,49 +86,60 @@ client names unless there is a source for them.
 
 ## Adding or replacing screenshots
 
-Projects without screenshots currently show an **architecture diagram** drawn from their
-README, labelled as such. To switch a project to real screenshots:
+Each project can have `screenshots` and/or a `diagram` in `src/content/projects.ts`:
 
-1. Put the raw images (PNG/JPG) in a folder outside the repository and run:
+- **`format: "slides"`** — landscape presentation images (1440 × 1080) with the app screen and
+  notes, as used for Scenario Omni Channel and AlEyada. The first slide is the home-page card
+  visual.
+- **`format: "phones"`** — portrait device screenshots on a transparent background (720 × 1280),
+  as used for Saloonsa POS, Intelligent Todo and Bahaa Discover. The first three appear on a
+  case-study card; compact cards show all of them in a scrollable row.
+- **`diagram`** — the architecture diagram. It appears on the case-study page, and on the card
+  when a project has no screenshots.
+
+Case-study pages show every screenshot in a gallery; each one opens full size in a new tab.
+
+To add or replace screenshots:
+
+1. Put the raw PNG/JPG files in a folder **outside `public/`**, named the way you want them
+   published (e.g. `doctor-search.png`), and run:
 
    ```bash
-   npm run images -- ~/path/to/aleyada-screens aleyada
+   npm run images -- ~/path/to/screens aleyada 1440   # slides: keep full width
+   npm run images -- ~/path/to/screens saloonsa-pos 720  # phones
    ```
 
-   Files are resized to 600 px wide (2× the on-page phone size), converted to WebP and written to
-   `public/projects/aleyada/`. The script prints each file's width and height.
+   Files are converted to WebP and written to `public/projects/<slug>/`, and the script prints
+   each file's size.
 
-2. In `src/content/projects.ts`, replace that project's `media` with:
+2. Add them to the project in `src/content/projects.ts`, in display order:
 
    ```ts
-   media: {
-     kind: "screenshots",
+   screenshots: {
+     format: "phones",
      images: [
-       {
-         src: "/projects/aleyada/doctor-search.webp",
-         alt: "Doctor search results with filters", // describe what the screenshot shows
-         width: 600,
-         height: 1271,
-       },
+       phone("saloonsa-pos/cashier", "Arabic cashier screen with service categories and prices."),
      ],
-     caption: "Screenshots from the app.",
+     caption: "Screens from the Android app.",
    },
    ```
 
-Three screenshots per project work best. Remove or blur real customer data before publishing.
+   `slide()` and `phone()` fill in the path and standard dimensions. Write alt text that says what
+   the screen shows. If an image has different dimensions, pass a full object
+   (`{ src, alt, width, height }`) instead.
+
+Don't commit raw PNGs into `public/`, because everything there is deployed. Remove or blur real
+customer data before publishing.
 
 ## Assets and information still needed
 
 These items are also listed as `todo` entries in `src/content/projects.ts`.
 
-| Item                                                                             | Where it goes                            |
-| -------------------------------------------------------------------------------- | ---------------------------------------- |
-| Scenario Omni Channel screenshots (inbox, thread, customer profile, dashboard)   | `public/projects/scenario-omni-channel/` |
-| AlEyada screenshots (doctor search, doctor profile, booking sheet, my bookings)  | `public/projects/aleyada/`               |
-| Saloonsa POS screenshots (cashier, printer selection) with no real business data | `public/projects/saloonsa-pos/`          |
-| Saloonsa POS context — client, freelance or own product?                         | `status` / `context` in `projects.ts`    |
-| Google Play / App Store links, if any app is publicly listed                     | `links.live` in `projects.ts`            |
-| Production domain                                                                | `NEXT_PUBLIC_SITE_URL` (see below)       |
+| Item                                                         | Where it goes                         |
+| ------------------------------------------------------------ | ------------------------------------- |
+| Saloonsa POS context — client, freelance or own product?     | `status` / `context` in `projects.ts` |
+| Google Play / App Store links, if any app is publicly listed | `links.live` in `projects.ts`         |
+| Production domain                                            | `NEXT_PUBLIC_SITE_URL` (see below)    |
 
 The Saloonsa invoice sample in that repository (`a4.png`) was deliberately not used. It shows a
 salon's name, staff first names and a photo of people.

@@ -3,7 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { statusLabels } from "@/content/projects";
 import type { Project } from "@/content/types";
 import { StatusBadge, TagList } from "@/components/ui/tag-list";
-import { ProjectMedia } from "./project-media";
+import { ProjectCover } from "./project-cover";
 
 type ProjectCardProps = {
   project: Project;
@@ -29,13 +29,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
           </h3>
           <p className="mt-1 text-sm text-muted">{project.tagline}</p>
         </div>
-        {project.media && (
-          <ProjectMedia
-            media={project.media}
-            title={project.title}
-            sizes="(min-width: 1024px) 180px, (min-width: 768px) 25vw, 28vw"
-          />
-        )}
+        <ProjectCover project={project} variant="compact" />
         <p className="text-sm text-pretty text-muted">{project.summary}</p>
         <div className="mt-auto space-y-5">
           <TagList items={project.stack} label={`${project.title} technology stack`} />
@@ -101,13 +95,9 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
         </div>
       </div>
 
-      {project.media && (
+      {(project.screenshots || project.diagram) && (
         <div className="lg:col-span-7">
-          <ProjectMedia
-            media={project.media}
-            title={project.title}
-            sizes="(min-width: 1024px) 220px, 30vw"
-          />
+          <ProjectCover project={project} variant="feature" />
         </div>
       )}
     </article>
