@@ -26,7 +26,7 @@ export type Profile = {
   };
 };
 
-export type ProjectStatus = "client" | "personal" | "in-development" | "concept";
+export type ProjectStatus = "client" | "freelance" | "personal" | "in-development" | "concept";
 
 export type Screenshot = {
   src: string;
@@ -78,7 +78,8 @@ export type Project = {
   highlights: string[];
   links: {
     source?: string;
-    live?: string;
+    /** Google Play listing. */
+    googlePlay?: string;
   };
   screenshots?: ScreenshotSet;
   /** Shown on the case-study page, and on the card when there are no screenshots. */
@@ -89,11 +90,6 @@ export type Project = {
     decisions: CaseStudyDecision[];
     practices: string[];
   };
-  /**
-   * Notes for the site owner about missing assets or facts. Never rendered;
-   * listed in the README so they can be supplied later.
-   */
-  todo?: string[];
 };
 
 export type SkillGroup = {

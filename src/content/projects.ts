@@ -17,6 +17,7 @@ function phone(path: string, alt: string): Screenshot {
 
 export const statusLabels: Record<ProjectStatus, string> = {
   client: "Client work",
+  freelance: "Freelance",
   personal: "Personal project",
   "in-development": "In development",
   concept: "Concept · mock data",
@@ -52,9 +53,11 @@ export const projects: Project[] = [
       "Conversation threads with images, documents and recorded voice notes, quoted and swipe-to-reply, retry on failed sends and draft preservation.",
       "Role-based navigation declared once and shared by the drawer and the router guard.",
       "130+ test files; CI runs analysis and tests on every push and pull request.",
+      "Released on Google Play.",
     ],
     links: {
       source: "https://github.com/indoo24/SocialOmniChannelMobileApp",
+      googlePlay: "https://play.google.com/store/apps/details?id=com.scenario.scenario_mobile",
     },
     screenshots: {
       format: "slides",
@@ -137,7 +140,6 @@ export const projects: Project[] = [
         "API reference, OpenAPI spec and security notes kept in the repository.",
       ],
     },
-    todo: ["Add a Google Play / App Store link if the app is publicly listed."],
   },
   {
     slug: "aleyada",
@@ -167,9 +169,11 @@ export const projects: Project[] = [
       "A network outage is not a logout: signed out, token rejected and token unverifiable are three distinct states.",
       "Booking rules, cancellation windows and clinic-timezone display times all come from the server.",
       "Light and dark themes built from colour roles, with a test that checks every pair against WCAG AA.",
+      "Released on Google Play.",
     ],
     links: {
       source: "https://github.com/indoo24/AlEyadaMobileApp",
+      googlePlay: "https://play.google.com/store/apps/details?id=com.aleyada.app",
     },
     screenshots: {
       format: "slides",
@@ -274,7 +278,6 @@ export const projects: Project[] = [
         "A guard test fails the build if a raw colour is used outside the theme layer.",
       ],
     },
-    todo: ["Add store links if the app is publicly listed."],
   },
   {
     slug: "saloonsa-pos",
@@ -282,7 +285,8 @@ export const projects: Project[] = [
     tagline: "Salon cashier app with Arabic thermal-receipt printing",
     summary:
       "A Flutter point-of-sale app for salons and barbershops. Staff build invoices from the salon's services, issue tax invoices with QR codes, and print receipts on Bluetooth thermal printers — in Arabic.",
-    context: "Integrates with the Saloonsa API",
+    status: "freelance",
+    context: "Freelance · ended before launch",
     role: "Mobile developer",
     period: "2025 – 2026",
     platforms: ["Android"],
@@ -354,6 +358,7 @@ export const projects: Project[] = [
     caseStudy: {
       overview: [
         "Saloonsa POS is a cashier app for salons and barbershops. It signs in against the Saloonsa API, lets staff build invoices from the salon's services, and prints them on the spot.",
+        "I built it as a freelance project. The engagement ended before the app was completed, so it was never released.",
         "Most of the engineering went into printing. Inexpensive Bluetooth thermal printers cannot shape Arabic text from ESC/POS text commands, and the app had to work across printer brands, paper sizes and Android versions.",
       ],
       decisions: [
@@ -385,9 +390,6 @@ export const projects: Project[] = [
         "Structured logging and a connectivity monitor.",
       ],
     },
-    todo: [
-      "Confirm the project context (client, freelance or own product) so a status label can be shown.",
-    ],
   },
   {
     slug: "intelligent-todo",

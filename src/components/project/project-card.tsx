@@ -115,7 +115,7 @@ function MetaItem({ term, value }: { term: string; value: string }) {
 
 export function ProjectLinks({ project }: { project: Project }) {
   const links = [
-    project.links.live && { label: "Live app", href: project.links.live },
+    project.links.googlePlay && { label: "Google Play", href: project.links.googlePlay },
     project.links.source && { label: "Source code", href: project.links.source },
   ].filter((link): link is { label: string; href: string } => Boolean(link));
 
