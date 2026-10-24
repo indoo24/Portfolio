@@ -28,27 +28,33 @@ export type Profile = {
 
 export type ProjectStatus = "client" | "personal" | "in-development" | "concept";
 
-export type ScreenshotMedia = {
-  kind: "screenshots";
-  images: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  }[];
+export type Screenshot = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type ScreenshotSet = {
+  /**
+   * "slides": landscape presentation images (app screen plus notes).
+   * "phones": portrait device screenshots on a transparent background.
+   */
+  format: "slides" | "phones";
+  /** Display order; the first image(s) are used on the home page card. */
+  images: Screenshot[];
   caption: string;
 };
 
-export type DiagramMedia = {
-  kind: "diagram";
+export type Diagram = {
+  /** Section heading on the case-study page, e.g. "Architecture". */
+  title: string;
   /** Ordered layers, top (UI) to bottom (backend). */
   layers: { label: string; detail: string }[];
   /** Side channels feeding back into the stack, e.g. realtime events. */
   channels?: { label: string; detail: string }[];
   caption: string;
 };
-
-export type ProjectMedia = ScreenshotMedia | DiagramMedia;
 
 export type CaseStudyDecision = {
   title: string;
@@ -74,7 +80,9 @@ export type Project = {
     source?: string;
     live?: string;
   };
-  media?: ProjectMedia;
+  screenshots?: ScreenshotSet;
+  /** Shown on the case-study page, and on the card when there are no screenshots. */
+  diagram?: Diagram;
   /** Projects with a case study get a dedicated page under /projects/[slug]. */
   caseStudy?: {
     overview: string[];

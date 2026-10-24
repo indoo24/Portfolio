@@ -1,18 +1,18 @@
 import { ArrowDown, RefreshCw } from "lucide-react";
-import type { DiagramMedia } from "@/content/types";
+import type { Diagram } from "@/content/types";
 
 /**
  * Renders a layered architecture diagram from project data as semantic HTML,
  * so it scales to any width and reads correctly with a screen reader.
  */
-export function ArchitectureDiagram({ media, title }: { media: DiagramMedia; title: string }) {
+export function ArchitectureDiagram({ diagram, title }: { diagram: Diagram; title: string }) {
   return (
     <figure className="flex h-full flex-col">
       <div className="relative flex flex-1 items-center overflow-hidden rounded-lg border border-line bg-surface p-4 transition-colors duration-300 group-hover:border-line-strong sm:p-6">
         <div aria-hidden="true" className="bg-grid absolute inset-0 opacity-60" />
         <div className="relative grid w-full gap-5 sm:grid-cols-[1fr_auto]">
           <ol aria-label={`${title} layers, from interface to backend`} className="grid">
-            {media.layers.map((layer, index) => (
+            {diagram.layers.map((layer, index) => (
               <li key={layer.label} className="grid">
                 {index > 0 && (
                   <ArrowDown aria-hidden="true" size={14} className="mx-auto my-1 text-subtle" />
@@ -30,12 +30,12 @@ export function ArchitectureDiagram({ media, title }: { media: DiagramMedia; tit
             ))}
           </ol>
 
-          {media.channels && (
+          {diagram.channels && (
             <ul
               aria-label="Feedback channels"
               className="grid content-center gap-3 sm:w-44 sm:border-l sm:border-dashed sm:border-line-strong sm:pl-5"
             >
-              {media.channels.map((channel) => (
+              {diagram.channels.map((channel) => (
                 <li
                   key={channel.label}
                   className="rounded-md border border-dashed border-accent/40 px-3 py-2.5"
@@ -51,7 +51,7 @@ export function ArchitectureDiagram({ media, title }: { media: DiagramMedia; tit
           )}
         </div>
       </div>
-      <figcaption className="mt-3 text-xs text-subtle">{media.caption}</figcaption>
+      <figcaption className="mt-3 text-xs text-subtle">{diagram.caption}</figcaption>
     </figure>
   );
 }

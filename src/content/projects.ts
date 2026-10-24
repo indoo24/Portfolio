@@ -1,10 +1,19 @@
-import type { Project, ProjectStatus } from "./types";
+import type { Project, ProjectStatus, Screenshot } from "./types";
 
 /*
  * Every statement below is taken from the project's repository (README, docs,
  * pubspec.yaml, source and commit history) or was confirmed by Yousef.
  * Do not add metrics, user counts or store listings without a source.
  */
+
+// Screenshots live in public/projects/<path>.webp (see `npm run images`).
+function slide(path: string, alt: string): Screenshot {
+  return { src: `/projects/${path}.webp`, alt, width: 1440, height: 1080 };
+}
+
+function phone(path: string, alt: string): Screenshot {
+  return { src: `/projects/${path}.webp`, alt, width: 720, height: 1280 };
+}
 
 export const statusLabels: Record<ProjectStatus, string> = {
   client: "Client work",
@@ -47,8 +56,34 @@ export const projects: Project[] = [
     links: {
       source: "https://github.com/indoo24/SocialOmniChannelMobileApp",
     },
-    media: {
-      kind: "diagram",
+    screenshots: {
+      format: "slides",
+      images: [
+        slide(
+          "scenario-omni-channel/unified-inbox",
+          "Unified inbox: WhatsApp, Instagram, TikTok and Messenger conversations in one list, each tagged with its status, lead stage and assigned agent.",
+        ),
+        slide(
+          "scenario-omni-channel/channel-analytics",
+          "Channel analytics: conversation volume per channel and a live lead pipeline, computed from the conversation database.",
+        ),
+        slide(
+          "scenario-omni-channel/agent-dashboard",
+          "Agent dashboard: open, waiting and resolved conversations, lead quality, purchase claims and response time.",
+        ),
+        slide(
+          "scenario-omni-channel/channel-connections",
+          "Channel connections: WhatsApp Business numbers, Facebook Pages and Instagram accounts with live status and one-tap reconnect.",
+        ),
+        slide(
+          "scenario-omni-channel/themes-language",
+          "Appearance settings: light, dark or system mode, four colour themes and a switch between English and Arabic.",
+        ),
+      ],
+      caption: "Screens from the Android app.",
+    },
+    diagram: {
+      title: "Architecture",
       layers: [
         { label: "Screens & widgets", detail: "Inbox, threads, customers, dashboard" },
         { label: "Riverpod controllers", detail: "AsyncNotifier per feature" },
@@ -60,7 +95,7 @@ export const projects: Project[] = [
         { label: "WebSocket events", detail: "Invalidate providers → refetch" },
         { label: "FCM push", detail: "Invalidate or deep-link" },
       ],
-      caption: "Architecture diagram drawn from the project README — not a screenshot.",
+      caption: "Drawn from the project README.",
     },
     caseStudy: {
       overview: [
@@ -102,10 +137,7 @@ export const projects: Project[] = [
         "API reference, OpenAPI spec and security notes kept in the repository.",
       ],
     },
-    todo: [
-      "Add 3–5 real screenshots (inbox, conversation thread, customer profile, dashboard) with customer data removed or blurred.",
-      "Add a Google Play / App Store link if the app is publicly listed.",
-    ],
+    todo: ["Add a Google Play / App Store link if the app is publicly listed."],
   },
   {
     slug: "aleyada",
@@ -139,8 +171,54 @@ export const projects: Project[] = [
     links: {
       source: "https://github.com/indoo24/AlEyadaMobileApp",
     },
-    media: {
-      kind: "diagram",
+    screenshots: {
+      format: "slides",
+      images: [
+        slide(
+          "aleyada/home",
+          "Home screen with a city filter, doctor search, quick actions, medical specialties and recommended doctors.",
+        ),
+        slide(
+          "aleyada/doctor-search",
+          "Doctor search results filtered by specialty and sorted by best match; each card shows experience, consultation fee and how to book.",
+        ),
+        slide(
+          "aleyada/booking-details",
+          "Booking details for a confirmed appointment: date, time, duration and clinic, with a Book again button.",
+        ),
+        slide(
+          "aleyada/my-bookings",
+          "My bookings with upcoming, past and cancelled tabs; each card shows the doctor, date, time, clinic and status.",
+        ),
+        slide(
+          "aleyada/sign-in",
+          "Arabic right-to-left sign-in with phone number and password, plus password reset and account creation.",
+        ),
+        slide(
+          "aleyada/favorites",
+          "Favourite doctors with specialty, location, consultation fee and whether online booking is available.",
+        ),
+        slide(
+          "aleyada/cancelled-bookings",
+          "Cancelled bookings tab, where each appointment keeps a clear cancelled status badge.",
+        ),
+        slide(
+          "aleyada/cancelled-booking",
+          "Details of a cancelled appointment with the visit type on record and a button to book a new appointment.",
+        ),
+        slide(
+          "aleyada/account",
+          "Account screen with a verified phone number, notifications, language and appearance settings, and an invitation for doctors to join.",
+        ),
+        slide(
+          "aleyada/splash",
+          "Splash screen with the AlEyada mark, an A crossed by a heartbeat line, and the tagline “Your Guide to Better Care”.",
+        ),
+      ],
+      caption: "Screens from the Android app.",
+    },
+    diagram: {
+      title: "Architecture",
       layers: [
         { label: "Feature screens", detail: "Doctors, bookings, practice management" },
         { label: "Riverpod + go_router", detail: "Controllers and declarative guards" },
@@ -152,7 +230,7 @@ export const projects: Project[] = [
         { label: "401 response", detail: "One refresh, then replay" },
         { label: "Error codes", detail: "Mapped to localized messages" },
       ],
-      caption: "Architecture diagram drawn from the project README — not a screenshot.",
+      caption: "Drawn from the project README.",
     },
     caseStudy: {
       overview: [
@@ -196,10 +274,7 @@ export const projects: Project[] = [
         "A guard test fails the build if a raw colour is used outside the theme layer.",
       ],
     },
-    todo: [
-      "Add real screenshots (doctor search, doctor profile, booking sheet, my bookings).",
-      "Add store links if the app is publicly listed.",
-    ],
+    todo: ["Add store links if the app is publicly listed."],
   },
   {
     slug: "saloonsa-pos",
@@ -230,8 +305,43 @@ export const projects: Project[] = [
     links: {
       source: "https://github.com/indoo24/Saloonsa-POS",
     },
-    media: {
-      kind: "diagram",
+    screenshots: {
+      format: "phones",
+      images: [
+        phone(
+          "saloonsa-pos/cashier",
+          "Arabic cashier screen with customer search, service category tabs and a grid of services with prices in Saudi riyals.",
+        ),
+        phone(
+          "saloonsa-pos/invoice-cart",
+          "Invoice sheet listing the selected services, the staff member for each, and the running total.",
+        ),
+        phone(
+          "saloonsa-pos/checkout",
+          "Checkout with subtotal before VAT, discount, 15% VAT, final total and amount paid, plus save, preview and print actions.",
+        ),
+        phone(
+          "saloonsa-pos/invoice-details",
+          "Invoice details form: number, customer, date, cashier, branch, payment method and due date, followed by the services.",
+        ),
+        phone(
+          "saloonsa-pos/printer-settings",
+          "Printer settings: paper size (58 mm, 80 mm or A4), a sample receipt preview and printer search over Wi-Fi, Bluetooth or USB.",
+        ),
+        phone(
+          "saloonsa-pos/shop-settings",
+          "Shop settings synced from the server: name, address, phone, tax number and an invoice footer note.",
+        ),
+        phone("saloonsa-pos/service-filter", "Cashier screen filtered to the skin-care category."),
+        phone(
+          "saloonsa-pos/splash",
+          "Salon POS splash screen with the salon's logo and the tagline “Professional Salon Management”.",
+        ),
+      ],
+      caption: "Screens from the Android app.",
+    },
+    diagram: {
+      title: "Printing pipeline",
       layers: [
         { label: "Invoice data", detail: "Services, totals, VAT, QR payload" },
         { label: "Flutter widget", detail: "Receipt laid out like any screen" },
@@ -239,7 +349,7 @@ export const projects: Project[] = [
         { label: "Monochrome bitmap", detail: "Thresholded for thermal paper" },
         { label: "ESC/POS raster bytes", detail: "Sent over Bluetooth Classic" },
       ],
-      caption: "Printing pipeline drawn from the project documentation — not a screenshot.",
+      caption: "Drawn from the project documentation.",
     },
     caseStudy: {
       overview: [
@@ -276,7 +386,6 @@ export const projects: Project[] = [
       ],
     },
     todo: [
-      "Add screenshots of the cashier and printer-selection screens (no real customer or business data).",
       "Confirm the project context (client, freelance or own product) so a status label can be shown.",
     ],
   },
@@ -309,8 +418,8 @@ export const projects: Project[] = [
     links: {
       source: "https://github.com/indoo24/Intelligent_Todo_app",
     },
-    media: {
-      kind: "screenshots",
+    screenshots: {
+      format: "phones",
       images: [
         {
           src: "/projects/intelligent-todo/home-dark.webp",
@@ -335,6 +444,70 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "bahaa-discover",
+    title: "Bahaa Discover",
+    tagline: "Tourism guide for Saudi Arabia's Al Baha region",
+    summary:
+      "A tourism guide built with Clean Architecture and BLoC: places, events, a region map, QR check-ins with points and badges, a premium plan and offline downloads. It runs on mock data and is not connected to a backend yet.",
+    status: "concept",
+    context: "Concept",
+    role: "Developer",
+    period: "2026",
+    platforms: ["Android", "iOS"],
+    stack: ["Flutter", "BLoC", "Clean Architecture", "get_it", "dartz", "go_router"],
+    highlights: [],
+    links: {
+      source: "https://github.com/indoo24/bahaa_discover",
+    },
+    screenshots: {
+      format: "phones",
+      images: [
+        phone(
+          "bahaa-discover/home",
+          "Home screen with today's weather, feature shortcuts, quick suggestions and categories.",
+        ),
+        phone(
+          "bahaa-discover/explore",
+          "Explore places with a search bar, category filters and a place card with rating and distance.",
+        ),
+        phone("bahaa-discover/places", "Featured places with ratings, tags and visit counts."),
+        phone(
+          "bahaa-discover/map",
+          "Map screen with a link to Google Maps and a list of places in the Al Baha region.",
+        ),
+        phone(
+          "bahaa-discover/qr-scan",
+          "QR scanner for collecting points at landmarks, restaurants and events.",
+        ),
+        phone(
+          "bahaa-discover/badges",
+          "Achievements screen with points, visits and trails counters.",
+        ),
+        phone(
+          "bahaa-discover/achievements",
+          "Locked achievement badges with the points needed to unlock each one.",
+        ),
+        phone(
+          "bahaa-discover/events",
+          "Events screen with category filters and an empty state when nothing matches.",
+        ),
+        phone(
+          "bahaa-discover/premium",
+          "Premium plan screen listing benefits such as no ads, featured trails, offline downloads and priority support.",
+        ),
+        phone(
+          "bahaa-discover/offline",
+          "Offline mode settings for downloading the region map, place information, walking trails and the tourist guide.",
+        ),
+        phone(
+          "bahaa-discover/splash",
+          "Splash screen with a tree mark and the Arabic title “Discover Al Baha”.",
+        ),
+      ],
+      caption: "Screens from the app, running on mock data.",
+    },
+  },
+  {
     slug: "honest-squash",
     title: "Honest Squash",
     tagline: "Squash court reservation app",
@@ -349,23 +522,6 @@ export const projects: Project[] = [
     highlights: [],
     links: {
       source: "https://github.com/indoo24/Honest-Acadimy",
-    },
-  },
-  {
-    slug: "bahaa-discover",
-    title: "Bahaa Discover",
-    tagline: "Tourism guide for Saudi Arabia's Al Baha region",
-    summary:
-      "An early tourism guide structured with Clean Architecture and BLoC: places, events, local producers and trip suggestions. It runs on mock JSON data, and several screens are still in progress.",
-    status: "concept",
-    context: "Concept",
-    role: "Developer",
-    period: "2026",
-    platforms: ["Android", "iOS"],
-    stack: ["Flutter", "BLoC", "Clean Architecture", "get_it", "dartz", "go_router"],
-    highlights: [],
-    links: {
-      source: "https://github.com/indoo24/bahaa_discover",
     },
   },
 ];
