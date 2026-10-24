@@ -6,8 +6,20 @@ export const ogSize = { width: 1200, height: 630 };
 
 // Read synchronously at module load: async file I/O would opt the image
 // routes out of build-time prerendering under Cache Components.
-const serif = readFileSync(join(process.cwd(), "src/assets/og/InstrumentSerif-Regular.ttf"));
-const sans = readFileSync(join(process.cwd(), "src/assets/og/HankenGrotesk-Medium.ttf"));
+const asset = (file: string) => readFileSync(join(process.cwd(), "src/assets/og", file));
+const sora = asset("Sora-Bold.ttf");
+const jakarta = asset("PlusJakartaSans-Medium.ttf");
+const photo = `data:image/jpeg;base64,${asset("profile.jpg").toString("base64")}`;
+
+function FlutterMark({ size }: { size: number }) {
+  return (
+    <svg width={size} height={(size * 24) / 20} viewBox="2 0 20 24">
+      <path fill="#54C5F8" d="M14.314 0 2.3 12 6 15.7 21.684.013z" />
+      <path fill="#54C5F8" d="M14.328 11.072H21.7l-6.46 6.46H7.857z" />
+      <path fill="#01579B" d="M7.857 17.53h7.383L21.7 24h-7.373z" />
+    </svg>
+  );
+}
 
 /** Shared social card used by the home page and every case study. */
 export function renderOgImage({
@@ -25,59 +37,62 @@ export function renderOgImage({
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
+        alignItems: "center",
         justifyContent: "space-between",
-        padding: "72px 80px",
-        background: "#0b0c0a",
-        backgroundImage:
-          "linear-gradient(to right, rgba(236,235,227,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(236,235,227,0.05) 1px, transparent 1px)",
-        backgroundSize: "64px 64px",
-        color: "#ecebe3",
-        fontFamily: "Hanken",
+        padding: "64px 72px",
+        background: "radial-gradient(circle at 78% 40%, #173a7a 0%, #0a1430 45%, #050b18 100%)",
+        color: "#eaf0ff",
+        fontFamily: "Jakarta",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 24 }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 48,
-            height: 48,
-            border: "1px solid #3b3f35",
-            borderRadius: 4,
-            color: "#c6f04a",
-            fontSize: 18,
-          }}
-        >
-          YK
+      <div style={{ display: "flex", flexDirection: "column", maxWidth: 700 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 24 }}>
+          <FlutterMark size={30} />
+          <span style={{ color: "#5cc8ff", letterSpacing: 3, textTransform: "uppercase" }}>
+            {eyebrow}
+          </span>
         </div>
-        <span style={{ color: "#a9ab9f", letterSpacing: 2, textTransform: "uppercase" }}>
-          {eyebrow}
-        </span>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
-            display: "flex",
-            fontFamily: "Instrument Serif",
-            fontSize: title.length > 16 ? 100 : 128,
-            lineHeight: 0.95,
+            marginTop: 28,
+            fontFamily: "Sora",
+            fontSize: title.length > 18 ? 74 : 92,
+            lineHeight: 1.02,
             letterSpacing: -3,
           }}
         >
           {title}
-          <span style={{ color: "#c6f04a" }}>.</span>
         </div>
-        <div style={{ marginTop: 28, fontSize: 34, color: "#a9ab9f" }}>{subtitle}</div>
+        <div style={{ marginTop: 24, fontSize: 32, color: "#a6b4d6" }}>{subtitle}</div>
+        <div
+          style={{
+            marginTop: 40,
+            width: 220,
+            height: 6,
+            borderRadius: 6,
+            background: "linear-gradient(90deg, #5cc8ff, #3d8bff)",
+          }}
+        />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          padding: 6,
+          borderRadius: 999,
+          background: "linear-gradient(135deg, #5cc8ff, #3d8bff, #01579b)",
+          boxShadow: "0 30px 90px rgba(61,139,255,0.5)",
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- rendered by ImageResponse */}
+        <img src={photo} width={300} height={300} alt="" style={{ borderRadius: 999 }} />
       </div>
     </div>,
     {
       ...ogSize,
       fonts: [
-        { name: "Instrument Serif", data: serif, style: "normal", weight: 400 },
-        { name: "Hanken", data: sans, style: "normal", weight: 500 },
+        { name: "Sora", data: sora, style: "normal", weight: 700 },
+        { name: "Jakarta", data: jakarta, style: "normal", weight: 500 },
       ],
     },
   );

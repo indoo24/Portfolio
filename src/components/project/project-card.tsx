@@ -20,11 +20,11 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
     return (
       <article
         aria-labelledby={headingId}
-        className="group reveal flex h-full flex-col gap-5 rounded-lg border border-line p-5 transition-colors duration-300 hover:border-line-strong sm:p-6"
+        className="group reveal glass glow-border flex h-full flex-col gap-5 rounded-3xl p-5 transition-[translate] duration-500 hover:-translate-y-1 sm:p-7"
       >
         {project.status && <StatusBadge>{statusLabels[project.status]}</StatusBadge>}
         <div>
-          <h3 id={headingId} className="font-serif text-3xl">
+          <h3 id={headingId} className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
             {project.title}
           </h3>
           <p className="mt-1 text-sm text-muted">{project.tagline}</p>
@@ -42,18 +42,23 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
   return (
     <article
       aria-labelledby={headingId}
-      className="group reveal grid gap-8 border-t border-line py-10 lg:grid-cols-12 lg:gap-10 lg:py-14"
+      className="group reveal glass glow-border grid gap-8 rounded-[2rem] p-5 sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10"
     >
       <div className="flex flex-col gap-6 lg:col-span-5">
         <div className="flex items-center justify-between gap-4">
-          <span className="font-mono text-xs text-subtle">
-            {index !== undefined && String(index + 1).padStart(2, "0")}
+          <span aria-hidden="true" className="font-display text-5xl leading-none font-bold">
+            <span className="text-gradient">
+              {index !== undefined && String(index + 1).padStart(2, "0")}
+            </span>
           </span>
           {project.status && <StatusBadge>{statusLabels[project.status]}</StatusBadge>}
         </div>
 
         <div>
-          <h3 id={headingId} className="font-serif text-4xl tracking-[-0.01em] sm:text-5xl">
+          <h3
+            id={headingId}
+            className="font-display text-3xl font-bold tracking-[-0.03em] sm:text-4xl"
+          >
             {caseStudyHref ? (
               <Link href={caseStudyHref} className="transition-colors hover:text-accent">
                 {project.title}
@@ -80,7 +85,7 @@ export function ProjectCard({ project, variant, index }: ProjectCardProps) {
           {caseStudyHref && (
             <Link
               href={caseStudyHref}
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-ink transition-colors hover:bg-fg"
+              className="btn-gradient inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
             >
               Read the case study
               <span className="sr-only">: {project.title}</span>

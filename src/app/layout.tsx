@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Plus_Jakarta_Sans, Sora } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { profile } from "@/content/profile";
@@ -9,16 +9,14 @@ import "./globals.css";
 // Every route is static content; fail the build if request-time rendering creeps in.
 export const ensureStatic = "navigation";
 
-const hanken = Hanken_Grotesk({
-  variable: "--font-hanken",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  weight: "400",
-  style: ["normal", "italic"],
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -74,7 +72,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0c0a",
+  themeColor: "#050b18",
   colorScheme: "dark",
 };
 
@@ -83,7 +81,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${hanken.variable} ${instrument.variable} ${jetbrains.variable} antialiased`}
+      className={`${jakarta.variable} ${sora.variable} ${jetbrains.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
         <a

@@ -7,12 +7,12 @@ type Size = "md" | "sm";
 // Sizing lives in its own map so callers never need to override conflicting
 // utilities (Tailwind does not resolve conflicts by class order).
 const base =
-  "group inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors duration-200";
+  "group inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold transition-all duration-300";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-accent-ink hover:bg-fg",
-  secondary: "border border-line-strong text-fg hover:border-fg hover:bg-raised",
-  ghost: "text-muted underline-offset-4 hover:text-fg hover:underline",
+  primary: "btn-gradient hover:-translate-y-0.5",
+  secondary: "glass text-fg hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent",
+  ghost: "font-medium text-muted underline-offset-4 hover:text-fg hover:underline",
 };
 
 const sizes: Record<Size, string> = {

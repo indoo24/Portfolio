@@ -54,3 +54,21 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
 ];
+
+/** Scrolling technology strip under the hero. */
+export const techStrip = [
+  "Flutter",
+  "Dart",
+  "Riverpod",
+  "BLoC / Cubit",
+  "Provider",
+  "Clean Architecture",
+  "Firebase",
+  "REST APIs",
+  "WebSockets",
+  "go_router",
+  "JWT auth",
+  "GitHub Actions",
+  "Arabic RTL",
+  "Bluetooth printing",
+];

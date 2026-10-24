@@ -28,7 +28,7 @@ export function ScreenshotStrip({
 
   return (
     <figure>
-      <div className="rounded-lg border border-line bg-surface p-4 sm:p-6">
+      <div className="rounded-2xl border border-line bg-bg/60 p-4 sm:p-6">
         <ul
           aria-label={scrollable ? `${label} — scroll for more` : label}
           // A scrollable region must be reachable by keyboard.

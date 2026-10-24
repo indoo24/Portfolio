@@ -26,7 +26,7 @@ export function SocialLinks({ className = "" }: { className?: string }) {
           <a
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="grid size-11 place-items-center rounded-full border border-line-strong text-muted transition-colors hover:border-fg hover:text-fg"
+            className="glass grid size-11 place-items-center rounded-full text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent"
           >
             <Icon size={17} />
             <span className="sr-only">

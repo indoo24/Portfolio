@@ -13,7 +13,7 @@ export default function NotFound() {
       <p className="label">
         <span className="text-accent">404</span> / Not found
       </p>
-      <h1 className="mt-6 font-serif text-title">This page doesn&apos;t exist.</h1>
+      <h1 className="mt-6 font-display text-title font-semibold">This page doesn&apos;t exist.</h1>
       <p className="mt-5 max-w-xl text-lg text-muted">
         The link may be out of date. The projects and contact details are on the home page.
       </p>

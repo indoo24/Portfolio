@@ -50,13 +50,14 @@ src/
     icon.svg, not-found.tsx
     globals.css                Design tokens (colors, type scale, motion)
   components/
+    brand/                     FlutterLogo, FlutterSky (flying logos), PointerField (parallax)
     layout/                    Header, mobile menu (+ lazily loaded panel), footer
-    sections/                  Hero, Work, About, Skills, Contact
+    sections/                  Hero, TechStrip, Work, About, Skills, Contact
     project/                   ProjectCard, ProjectCover, ScreenshotGallery, ScreenshotStrip,
                                ArchitectureDiagram
     ui/                        ButtonLink, Container, SectionHeading, TagList, icons
   content/                     ← all site copy and data
-    profile.ts                 Name, title, links, résumé, availability, hero log, navigation
+    profile.ts                 Name, title, links, résumé, availability, hero phrases/facts, navigation
     projects.ts                Projects and case studies
     about.ts                   About text, principles, experience
     skills.ts                  Skill groups and where each skill was used
@@ -207,17 +208,27 @@ Console.
 
 ## Design notes
 
-- **Colors:** defined as tokens in `src/app/globals.css`. Every text color meets WCAG AA
-  (≥ 4.5:1) on every surface; the lime accent is used only for actions, focus and status.
-- **Type:** Instrument Serif (headings), Hanken Grotesk (body), JetBrains Mono (labels), all
-  self-hosted through `next/font`.
-- **Motion:**
-  - The hero entrance and section reveals are CSS-only. Reveals use scroll-driven animations and
-    fall back to static content where unsupported.
-  - Motion powers only the mobile menu, and its code is fetched when the menu is first used.
-  - Everything respects `prefers-reduced-motion`, and all content is visible without JavaScript.
+- **Look:** deep navy with Flutter blues, glass panels, gradient text and glowing borders.
+- **Colors:** tokens in `src/app/globals.css`. Every text color meets WCAG AA (≥ 4.5:1) on every
+  surface.
+- **Type:** Sora (headings), Plus Jakarta Sans (body), JetBrains Mono (labels), all self-hosted
+  through `next/font`.
+- **Motion** (all CSS unless noted):
+  - Flying Flutter logos (`FlutterSky`) drift up through the hero, contact panel and case-study
+    headers. `PointerField` adds pointer parallax and a spotlight on mouse devices, and pauses the
+    animations while a section is off-screen.
+  - The portrait has a rotating gradient ring and orbiting technology chips; the hero phrases
+    rotate; a technology strip scrolls; a progress bar under the header follows the page scroll.
+  - Every animation runs on the compositor (transform/opacity) to keep scrolling smooth.
+  - Motion (the library) powers only the mobile menu and is fetched when the menu is first used.
+  - With `prefers-reduced-motion`, everything stops and the logos rest in place. All content is
+    visible without JavaScript.
+- **Profile photo:** `public/profile/yousef-kandeel.webp` (circular cut-out with transparency).
+  The social images use `src/assets/og/profile.jpg`. Replace both to change the photo.
 
 ## Credits
 
-- Fonts: Instrument Serif, Hanken Grotesk and JetBrains Mono — SIL Open Font License.
+- Fonts: Sora, Plus Jakarta Sans and JetBrains Mono — SIL Open Font License.
+- Flutter mark: drawn from the [Simple Icons](https://simpleicons.org) outline (CC0); Flutter and
+  the Flutter logo are trademarks of Google LLC.
 - GitHub and LinkedIn marks: [Simple Icons](https://simpleicons.org) (CC0).

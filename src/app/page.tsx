@@ -2,6 +2,7 @@ import { About } from "@/components/sections/about";
 import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
 import { Skills } from "@/components/sections/skills";
+import { TechStrip } from "@/components/sections/tech-strip";
 import { Work } from "@/components/sections/work";
 import { profile } from "@/content/profile";
 import { jsonLd } from "@/lib/json-ld";
@@ -36,6 +37,7 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(structuredData)} />
       <Hero />
+      <TechStrip />
       <Work />
       <About />
       <Skills />
