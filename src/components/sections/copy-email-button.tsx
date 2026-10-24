@@ -28,7 +28,7 @@ export function CopyEmailButton({ email }: { email: string }) {
       <button
         type="button"
         onClick={copy}
-        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-5 text-sm transition-colors hover:border-fg hover:bg-raised"
+        className="glass inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent"
       >
         {status === "copied" ? (
           <Check aria-hidden="true" size={16} className="text-accent" />

@@ -20,7 +20,7 @@ export function ProjectCover({
     const [lead] = screenshots.images;
     return (
       <figure>
-        <div className="overflow-hidden rounded-lg border border-line transition-colors duration-300 group-hover:border-line-strong">
+        <div className="overflow-hidden rounded-2xl border border-line shadow-[0_30px_80px_-30px_rgb(61_139_255/0.45)] transition-colors duration-300 group-hover:border-line-strong">
           <Image
             src={lead.src}
             alt={lead.alt}

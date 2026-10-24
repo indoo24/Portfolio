@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { FlutterSky } from "@/components/brand/flutter-sky";
+import { PointerField } from "@/components/brand/pointer-field";
 import { ProjectLinks } from "@/components/project/project-card";
 import { ArchitectureDiagram } from "@/components/project/architecture-diagram";
 import { ScreenshotGallery } from "@/components/project/screenshot-gallery";
@@ -71,47 +73,55 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
     <article aria-labelledby="case-title">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(structuredData)} />
 
-      <header className="relative isolate overflow-hidden border-b border-line">
-        <div aria-hidden="true" className="bg-grid absolute inset-0 -z-10" />
-        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
-          <Link
-            href="/#work"
-            className="inline-flex min-h-11 items-center gap-2 text-sm text-muted transition-colors hover:text-fg"
-          >
-            <ArrowLeft aria-hidden="true" size={16} />
-            All work
-          </Link>
+      <PointerField className="relative isolate overflow-hidden border-b border-line">
+        <div aria-hidden="true" className="absolute inset-0 -z-10">
+          <div className="bg-grid absolute inset-0" />
+          <div className="absolute -top-40 left-1/3 h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgb(61_139_255/0.28),transparent)]" />
+          <FlutterSky count={8} seed={position + 3} intensity={0.7} />
+        </div>
+        <header>
+          <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+            <Link
+              href="/#work"
+              className="glass inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-medium text-muted transition-colors hover:border-accent/60 hover:text-accent"
+            >
+              <ArrowLeft aria-hidden="true" size={16} />
+              All work
+            </Link>
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                <p className="label">Case study {String(position + 1).padStart(2, "0")}</p>
-                {project.status && <StatusBadge>{statusLabels[project.status]}</StatusBadge>}
+            <div className="mt-10 grid gap-10 lg:grid-cols-12">
+              <div className="lg:col-span-8">
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                  <p className="label text-accent">
+                    Case study {String(position + 1).padStart(2, "0")}
+                  </p>
+                  {project.status && <StatusBadge>{statusLabels[project.status]}</StatusBadge>}
+                </div>
+                <h1
+                  id="case-title"
+                  className="mt-5 font-display text-display font-bold tracking-[-0.035em] text-balance"
+                >
+                  {project.title}
+                </h1>
+                <p className="mt-6 max-w-2xl text-xl text-pretty sm:text-2xl">{project.tagline}</p>
+                <p className="mt-4 max-w-2xl text-lg text-pretty text-muted">{project.summary}</p>
               </div>
-              <h1
-                id="case-title"
-                className="mt-5 font-serif text-display tracking-[-0.025em] text-balance"
-              >
-                {project.title}
-              </h1>
-              <p className="mt-6 max-w-2xl text-xl text-pretty sm:text-2xl">{project.tagline}</p>
-              <p className="mt-4 max-w-2xl text-lg text-pretty text-muted">{project.summary}</p>
+
+              <dl className="glass grid content-start gap-5 rounded-3xl p-6 text-sm sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
+                <Meta term="Role" value={project.role} />
+                <Meta term="Context" value={project.context} />
+                <Meta term="Period" value={project.period} />
+                <Meta term="Platforms" value={project.platforms.join(", ")} />
+              </dl>
             </div>
 
-            <dl className="grid content-start gap-5 text-sm sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1 lg:border-l lg:border-line lg:pl-8">
-              <Meta term="Role" value={project.role} />
-              <Meta term="Context" value={project.context} />
-              <Meta term="Period" value={project.period} />
-              <Meta term="Platforms" value={project.platforms.join(", ")} />
-            </dl>
-          </div>
-
-          <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <TagList items={project.stack} label={`${project.title} technology stack`} />
-            <ProjectLinks project={project} />
-          </div>
-        </Container>
-      </header>
+            <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <TagList items={project.stack} label={`${project.title} technology stack`} />
+              <ProjectLinks project={project} />
+            </div>
+          </Container>
+        </header>
+      </PointerField>
 
       <Container className="py-16 lg:py-24">
         {project.screenshots && (
@@ -137,7 +147,10 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
           <ul className="space-y-4">
             {project.highlights.map((item) => (
               <li key={item} className="flex gap-3 text-pretty">
-                <span aria-hidden="true" className="mt-2.5 h-px w-4 shrink-0 bg-accent" />
+                <span
+                  aria-hidden="true"
+                  className="mt-2 size-2 shrink-0 rounded-full bg-accent shadow-[0_0_10px_rgb(92_200_255/0.8)]"
+                />
                 <span>{item}</span>
               </li>
             ))}
@@ -151,11 +164,14 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
         )}
 
         <CaseSection index={sectionIndex()} title="Problems & decisions">
-          <ol className="divide-y divide-line border-y border-line">
+          <ol className="space-y-4">
             {caseStudy.decisions.map((item, index) => (
-              <li key={item.title} className="reveal grid gap-4 py-8 md:grid-cols-12 md:gap-6">
-                <h3 className="flex gap-3 font-serif text-2xl md:col-span-4">
-                  <span aria-hidden="true" className="pt-2 font-mono text-xs text-accent">
+              <li
+                key={item.title}
+                className="reveal glass glow-border grid gap-4 rounded-3xl p-6 sm:p-8 md:grid-cols-12 md:gap-6"
+              >
+                <h3 className="flex gap-3 font-display text-xl font-bold tracking-tight md:col-span-4">
+                  <span aria-hidden="true" className="pt-1.5 font-mono text-xs text-accent">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {item.title}
@@ -176,23 +192,26 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
         </CaseSection>
 
         <CaseSection index={sectionIndex()} title="Engineering practices">
-          <ul className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+          <ul className="grid gap-4 sm:grid-cols-2">
             {caseStudy.practices.map((item) => (
-              <li key={item} className="bg-bg p-5 text-sm text-pretty text-muted">
+              <li
+                key={item}
+                className="reveal glass rounded-2xl p-5 text-sm text-pretty text-muted"
+              >
                 {item}
               </li>
             ))}
           </ul>
         </CaseSection>
 
-        <nav aria-label="More case studies" className="mt-24 border-t border-line pt-8">
+        <nav aria-label="More case studies" className="mt-24">
           <Link
             href={`/projects/${next.slug}`}
-            className="group flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
+            className="group glass glow-border flex flex-col gap-2 rounded-[2rem] p-6 sm:flex-row sm:items-end sm:justify-between sm:p-10"
           >
             <span>
               <span className="label block">Next case study</span>
-              <span className="mt-2 block font-serif text-title transition-colors group-hover:text-accent">
+              <span className="mt-2 block font-display text-title font-bold tracking-tight transition-colors group-hover:text-accent">
                 {next.title}
               </span>
             </span>
@@ -233,7 +252,7 @@ function CaseSection({
         <span aria-hidden="true" className="font-mono text-xs text-accent">
           {index}
         </span>
-        <span className="font-serif text-3xl">{title}</span>
+        <span className="font-display text-2xl font-bold tracking-tight">{title}</span>
       </h2>
       <div className="md:col-span-9">{children}</div>
     </section>

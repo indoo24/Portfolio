@@ -21,7 +21,7 @@ export function ScreenshotGallery({
         className={
           slides
             ? "grid gap-4 md:grid-cols-2 md:gap-6"
-            : "grid grid-cols-2 gap-4 rounded-lg border border-line bg-surface p-4 sm:grid-cols-3 sm:gap-6 sm:p-8 lg:grid-cols-4"
+            : "glass grid grid-cols-2 gap-4 rounded-3xl p-4 sm:grid-cols-3 sm:gap-6 sm:p-8 lg:grid-cols-4"
         }
       >
         {screenshots.images.map((image, index) => (
@@ -30,7 +30,7 @@ export function ScreenshotGallery({
               href={image.src}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group block ${slides ? "overflow-hidden rounded-lg border border-line transition-colors hover:border-line-strong" : ""}`}
+              className={`group block ${slides ? "overflow-hidden rounded-2xl border border-line transition-colors hover:border-accent/50" : ""}`}
             >
               <Image
                 src={image.src}

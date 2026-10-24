@@ -20,7 +20,7 @@ export default function MenuPanel({ open, id, items, onClose }: MenuPanelProps) 
           <>
             <m.div
               aria-hidden="true"
-              className="fixed inset-x-0 top-16 bottom-0 bg-bg/70"
+              className="fixed inset-x-0 top-16 bottom-0 bg-bg/80 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -30,7 +30,7 @@ export default function MenuPanel({ open, id, items, onClose }: MenuPanelProps) 
             <m.nav
               id={id}
               aria-label="Mobile"
-              className="absolute inset-x-0 top-16 border-b border-line bg-surface"
+              className="absolute inset-x-0 top-16 border-b border-line bg-surface shadow-[0_30px_60px_-20px_rgb(0_0_0/0.6)]"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -42,10 +42,10 @@ export default function MenuPanel({ open, id, items, onClose }: MenuPanelProps) 
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="flex min-h-14 items-center justify-between font-serif text-3xl"
+                      className="flex min-h-14 items-center justify-between font-display text-2xl font-bold tracking-tight transition-colors hover:text-accent"
                     >
                       {item.label}
-                      <span className="font-mono text-xs text-subtle" aria-hidden="true">
+                      <span className="font-mono text-xs text-accent" aria-hidden="true">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                     </Link>

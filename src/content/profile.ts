@@ -23,16 +23,24 @@ export const profile: Profile = {
   },
 };
 
-/** Lines shown in the hero's "build log" figure. Each note is documented in its repository. */
-export const heroLog: { command: string; note: string }[] = [
-  {
-    command: "scenario_mobile",
-    note: "realtime events invalidate, REST stays the source of truth",
-  },
-  { command: "aleyada", note: "single-flight JWT refresh — offline is not a logout" },
-  { command: "saloonsa_pos", note: "Arabic receipts printed as ESC/POS raster images" },
-  { command: "flutter test", note: "130+ test files in scenario_mobile, run in CI" },
+/** Rotating phrases after "I build" in the hero. Exactly four (see the `phrases` keyframes). */
+export const heroPhrases = [
+  "production Flutter apps",
+  "clean, testable architecture",
+  "real-time mobile features",
+  "Arabic-first interfaces",
 ];
+
+/** Headline facts under the hero. Each one is verifiable from the projects. */
+export const heroFacts: { value: string; label: string }[] = [
+  { value: "2", label: "apps live on Google Play" },
+  { value: "130+", label: "test files in one Flutter codebase" },
+  { value: "6", label: "Flutter projects in this portfolio" },
+  { value: "EN · AR", label: "right-to-left ready interfaces" },
+];
+
+/** Technologies orbiting the portrait. */
+export const orbitTech = ["Flutter", "Dart", "Firebase", "Riverpod", "BLoC"];
 
 export const navigation: LinkItem[] = [
   { label: "Work", href: "/#work" },

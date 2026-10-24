@@ -8,7 +8,7 @@ import type { Diagram } from "@/content/types";
 export function ArchitectureDiagram({ diagram, title }: { diagram: Diagram; title: string }) {
   return (
     <figure className="flex h-full flex-col">
-      <div className="relative flex flex-1 items-center overflow-hidden rounded-lg border border-line bg-surface p-4 transition-colors duration-300 group-hover:border-line-strong sm:p-6">
+      <div className="relative flex flex-1 items-center overflow-hidden rounded-2xl border border-line bg-bg/60 p-4 transition-colors duration-300 group-hover:border-line-strong sm:p-6">
         <div aria-hidden="true" className="bg-grid absolute inset-0 opacity-60" />
         <div className="relative grid w-full gap-5 sm:grid-cols-[1fr_auto]">
           <ol aria-label={`${title} layers, from interface to backend`} className="grid">

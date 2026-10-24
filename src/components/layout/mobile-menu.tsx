@@ -60,7 +60,7 @@ export function MobileMenu({ items }: { items: LinkItem[] }) {
           setUsed(true);
           setOpen((value) => !value);
         }}
-        className="grid size-11 place-items-center rounded-full border border-line-strong text-fg transition-colors hover:bg-raised"
+        className="glass grid size-11 place-items-center rounded-full text-fg transition-colors hover:border-accent/60 hover:text-accent"
       >
         {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
