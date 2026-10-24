@@ -39,17 +39,6 @@ export type ScreenshotMedia = {
   caption: string;
 };
 
-export type DocumentMedia = {
-  kind: "document";
-  image: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-  caption: string;
-};
-
 export type DiagramMedia = {
   kind: "diagram";
   /** Ordered layers, top (UI) to bottom (backend). */
@@ -59,7 +48,7 @@ export type DiagramMedia = {
   caption: string;
 };
 
-export type ProjectMedia = ScreenshotMedia | DocumentMedia | DiagramMedia;
+export type ProjectMedia = ScreenshotMedia | DiagramMedia;
 
 export type CaseStudyDecision = {
   title: string;
@@ -73,7 +62,8 @@ export type Project = {
   /** One line used on cards and in metadata. */
   tagline: string;
   summary: string;
-  status: ProjectStatus;
+  /** Omitted when the project context is not confirmed. */
+  status?: ProjectStatus;
   context: string;
   role: string;
   period: string;
@@ -84,7 +74,7 @@ export type Project = {
     source?: string;
     live?: string;
   };
-  media: ProjectMedia;
+  media?: ProjectMedia;
   /** Projects with a case study get a dedicated page under /projects/[slug]. */
   caseStudy?: {
     overview: string[];

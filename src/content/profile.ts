@@ -23,6 +23,17 @@ export const profile: Profile = {
   },
 };
 
+/** Lines shown in the hero's "build log" figure. Each note is documented in its repository. */
+export const heroLog: { command: string; note: string }[] = [
+  {
+    command: "scenario_mobile",
+    note: "realtime events invalidate, REST stays the source of truth",
+  },
+  { command: "aleyada", note: "single-flight JWT refresh — offline is not a logout" },
+  { command: "saloonsa_pos", note: "Arabic receipts printed as ESC/POS raster images" },
+  { command: "flutter test", note: "130+ test files in scenario_mobile, run in CI" },
+];
+
 export const navigation: LinkItem[] = [
   { label: "Work", href: "/#work" },
   { label: "About", href: "/#about" },
