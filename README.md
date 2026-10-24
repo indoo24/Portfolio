@@ -78,6 +78,10 @@ All copy lives in `src/content/`; components never contain personal details.
 - **Projects:** `src/content/projects.ts`. A project with a `caseStudy` gets a page at
   `/projects/<slug>`, a row in "Selected work", a sitemap entry and a social image automatically.
   Projects without one appear under "More projects".
+- **Store links:** `links.googlePlay` on a project adds a "Google Play" link to its card and
+  case study.
+- **Project status label:** `status` (`client`, `freelance`, `personal`, `in-development`,
+  `concept`); the labels live in `statusLabels` in `projects.ts`.
 - **About, principles and experience:** `src/content/about.ts`.
 - **Skills:** `src/content/skills.ts`. `usedIn` lists the projects where a skill appears.
 
@@ -131,19 +135,6 @@ To add or replace screenshots:
 Don't commit raw PNGs into `public/`, because everything there is deployed. Remove or blur real
 customer data before publishing.
 
-## Assets and information still needed
-
-These items are also listed as `todo` entries in `src/content/projects.ts`.
-
-| Item                                                         | Where it goes                         |
-| ------------------------------------------------------------ | ------------------------------------- |
-| Saloonsa POS context — client, freelance or own product?     | `status` / `context` in `projects.ts` |
-| Google Play / App Store links, if any app is publicly listed | `links.live` in `projects.ts`         |
-| Production domain                                            | `NEXT_PUBLIC_SITE_URL` (see below)    |
-
-The Saloonsa invoice sample in that repository (`a4.png`) was deliberately not used. It shows a
-salon's name, staff first names and a photo of people.
-
 ## Contact form (optional)
 
 The site uses a `mailto:` link and a "Copy email" button, which work without any backend. To add a
@@ -157,28 +148,39 @@ Show a success or failure message only after the endpoint responds.
 
 ## SEO configuration
 
+The production URL is set in **`.env.production`** (committed):
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://portfolio-three-ecru-39.vercel.app
+```
+
+When you add a custom domain, change that line (or set the same variable in the Vercel dashboard,
+which takes precedence) and redeploy.
+
 The canonical origin is resolved in `src/lib/site.ts`, in this order:
 
-1. `NEXT_PUBLIC_SITE_URL` — set this once the final domain is chosen, e.g. `https://yousefkandeel.dev`
+1. `NEXT_PUBLIC_SITE_URL` — from the environment or `.env.production`
 2. `VERCEL_PROJECT_PRODUCTION_URL` — set automatically on Vercel
 3. `URL` — set automatically on Netlify
 4. `http://localhost:3000` — local fallback
 
 Canonical links, Open Graph URLs, `sitemap.xml`, `robots.txt` and JSON-LD all derive from it, so
-changing the domain only needs that variable and a redeploy. See `.env.example`.
+changing the domain only needs that variable and a redeploy.
 
 ## Deployment
 
-The site has no runtime secrets. The only optional environment variable is `NEXT_PUBLIC_SITE_URL`.
+The site has no runtime secrets. The only environment variable is `NEXT_PUBLIC_SITE_URL`, which
+`.env.production` already provides.
+
+**Live site:** <https://portfolio-three-ecru-39.vercel.app/> (Vercel, deploys from `main`).
 
 ### Vercel (recommended)
 
 1. Push the repository to GitHub.
 2. In Vercel, **Add New → Project** and import the repository. The Next.js preset is detected
    automatically (build: `npm run build`, output handled by Vercel).
-3. Optionally add `NEXT_PUBLIC_SITE_URL` under **Settings → Environment Variables** once you
-   have a custom domain, then redeploy.
-4. Add a custom domain under **Settings → Domains** when you have one.
+3. To use a custom domain, add it under **Settings → Domains**, then update
+   `NEXT_PUBLIC_SITE_URL` in `.env.production` and push.
 
 ### Netlify
 
