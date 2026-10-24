@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#0b0c0a"/>
+  <rect x="4.5" y="4.5" width="55" height="55" rx="8" fill="none" stroke="#3b3f35" stroke-width="3"/>
+  <text x="32" y="41" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="24" font-weight="700" fill="#c6f04a">YK</text>
+</svg>
