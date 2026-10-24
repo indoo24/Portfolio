@@ -10,7 +10,7 @@ export const profile: Profile = {
     "I build Flutter apps that hold up in real use — wired to real backends, structured so they stay maintainable, and tested against the contracts they depend on.",
   email: "yousef.qandeel24@gmail.com",
   github: "https://github.com/indoo24",
-  linkedin: "https://www.linkedin.com/in/yousef-mohamed-qandeel-ab59b4223",
+  linkedin: "https://www.linkedin.com/in/yousef-qandeel25",
   resumeUrl:
     "https://drive.google.com/file/d/1hn7A0hGwewC01jwB5xApcpLyn8ZPahR9/view?usp=drive_link",
   availability: {
