@@ -82,6 +82,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${hanken.variable} ${instrument.variable} ${jetbrains.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
